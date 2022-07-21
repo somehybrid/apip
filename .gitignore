@@ -2,3 +2,4 @@ venv/
 .idea/
 dist/
 .DS_Store
+apip.egg-info/
