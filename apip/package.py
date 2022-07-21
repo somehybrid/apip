@@ -1,7 +1,6 @@
 from __future__ import annotations
 from . import errors
 import subprocess
-import inspect
 
 class Package:
     """
@@ -14,14 +13,20 @@ class Package:
     :attr name: The name of the package.
     :attr version: The version of the package.
     """
-    def __init__(self, name: str, version: str, author: str = None, summary: str = None, description: str = None,
-                 license: str = None):
+    def __init__(self, name: str, version: str, author: str, summary: str, description: str, maintainer: str,
+                 license: str, author_email: str, classifiers: list, homepage: str, keywords: str, docs: str):
         self._name = name
         self._version = version
         self._author = author
         self._summary = summary
         self._description = description
         self._license = license
+        self._author_email = author_email
+        self._classifiers = classifiers
+        self._homepage = homepage
+        self._keywords = keywords
+        self._docs = docs
+        self._maintainer = maintainer
 
     @property
     def name(self):
@@ -82,6 +87,76 @@ class Package:
         :rtype: str
         """
         return self._license
+
+    @property
+    def maintainer(self):
+        """
+        Returns the maintainer of the package.
+
+        :return: The maintainer of the package.
+        :rtype: str
+        """
+        return self._maintainer
+
+    @property
+    def description(self):
+        """
+        Returns the description of the package.
+
+        :return: The description of the package.
+        :rtype: str
+        """
+        return self._description
+
+    @property
+    def author_email(self):
+        """
+        Returns the author email of the package.
+
+        :return: The author email of the package.
+        :rtype: str
+        """
+        return self._author_email
+
+    @property
+    def classifiers(self):
+        """
+        Returns the classifiers of the package.
+
+        :return: The classifiers of the package.
+        :rtype: list
+        """
+        return self._classifiers
+
+    @property
+    def homepage(self):
+        """
+        Returns the homepage of the package.
+
+        :return: The homepage of the package.
+        :rtype: str
+        """
+        return self._homepage
+
+    @property
+    def docs(self):
+        """
+        Returns the documentation URL of the package.
+
+        :return: The documentation URL of the package.
+        :rtype: str
+        """
+        return self._docs
+
+    @property
+    def issue_tracker(self):
+        """
+        Returns the issue tracker of the package.
+
+        :return: The issue tracker of the package.
+        :rtype: str
+        """
+        return self._issue_tracker
 
     def _shellify(self, command: str) -> list:
         """

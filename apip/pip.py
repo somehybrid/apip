@@ -56,25 +56,23 @@ class Client:
             packages.append(Package(item[0], item[1]))
         return packages
 
-    async def get(self, package, version=None):
+    async def get(self, package):
         """
         Returns a Package object for a given package name. Queries data from the PyPi API.
 
         :param package: The name of the package to get.
         :type package: str
-        :param version: The version of the package to get.
-        :type version: str
         :return: A Package object for the given package.
         :rtype: Package
         :raises PackageNotFoundException: The package was not found.
         """
-        version = f"/{version}" if version else ""
         async with aiohttp.ClientSession() as client:
-            async with client.get(f"https://pypi.org/pypi/{package}{version}/json") as response:
+            async with client.get(f"https://pypi.org/pypi/{package}/json") as response:
                 if response.status == 404:
                     raise errors.PackageNotFoundException(
                         f"{package} is not a valid package!"
                     )
                 data = await response.json()
-                return Package(data["info"]["name"], version, data["info"]["author"],
-                               data["info"]["summary"], data["info"]["description"], data["info"]["license"])
+                return Package(data["info"]["name"], data["version"], data["info"]["author"], data["info"]["summary"],
+                               data["info"]["description"], data["info"]["license"], data["info"]["home_page"],
+                               data["info"]["keywords"], data["info"]["docs_url"])
