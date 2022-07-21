@@ -12,6 +12,7 @@ sphinx:
 python:
   version: 3.8
   install:
+    - requirements: sphinxcontrib_trio
     - method: pip
       path: .
       extra_requirements:
