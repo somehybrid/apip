@@ -1,8 +1,7 @@
 Welcome to apip
 ===========================
 
-apip a modern, easy to use, feature-rich, and async ready API wrapper
-for PyPi.
+apip a simple API wrapper for PyPi.
 
 **Features:**
 
