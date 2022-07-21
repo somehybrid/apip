@@ -19,7 +19,6 @@ Is this your first time using the library? This is the place to get started!
 
 - **Quickstart:** :doc:`quickstart`
 - **Installation:** :doc:`installation`
-- **Examples:** Many examples are available in the :resource:`repository <examples>`.
 
 Content
 -------
