@@ -2,9 +2,8 @@
 [![Built with Python](https://img.shields.io/badge/-Python-3c679c?style=for-the-badge&logo=Python&logoColor=fae583)](https://python.org)
 [![Built with Aiohttp](https://img.shields.io/badge/-Aiohttp-FFFFFF?style=for-the-badge&logo=Aiohttp&logoColor=blue)](https://docs.aiohttp.org/en/stable/)
 
----
-An easy, high level wrapper for the Pip API. It uses `subprocess` to
-use the Pip CLI and wrap it into an easier to use package in Python.
+An easy, high level wrapper for the PyPi API. It wraps Pip and PyPi into an easier to use package in Python.
+
 ---
 
 ## Installation
