@@ -3,14 +3,6 @@ Welcome to apip
 
 apip a simple API wrapper for PyPi.
 
-**Features:**
-
-- Modern Pythonic API using ``async``\/``await`` syntax
-- Sane rate limit handling that prevents 429s
-- Command extension to aid with bot creation
-- Easy to use with an object oriented design
-- Optimised for both speed and memory
-
 Getting started
 -----------------
 
