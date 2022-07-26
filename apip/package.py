@@ -212,7 +212,7 @@ class Package:
         out = await asyncio.create_subprocess_shell(command, stderr=asyncio.subprocess.PIPE)
         self._err_checking(out.stderr.decode())
 
-    def uninstall(self, name):
+    async def uninstall(self, name):
         """
         Uninstalls a package through the Pip API.
 
