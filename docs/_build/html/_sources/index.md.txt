@@ -1,23 +1,10 @@
-# apip
-[![Built with Python](https://img.shields.io/badge/-Python-3c679c?style=for-the-badge&logo=Python&logoColor=fae583)](https://python.org)
-[![Built with Aiohttp](https://img.shields.io/badge/-Aiohttp-FFFFFF?style=for-the-badge&logo=Aiohttp&logoColor=blue)](https://docs.aiohttp.org/en/stable/)
+Welcome to apip
+===========================
 
-An easy, high level wrapper for the PyPi API. It wraps Pip and PyPi into an easier to use package in Python.
+apip a simple API wrapper for PyPi.
 
----
-
-## Installation
-**Requires Python 3.7+**
-
-To install `apip` on PyPi, run 
-```shell
-pip install apip
-```
----
-
-## API Coverage
-This table covers the coverage of apip
-
+API Coverage
+------------
 | Feature             | Supported                                                                                                |
 |---------------------|----------------------------------------------------------------------------------------------------------|
 | Installing Packages | <img alt="✅" src="https://cdnjs.cloudflare.com/ajax/libs/emojione/2.2.7/assets/png/2705.png" width=15>   |
@@ -27,12 +14,22 @@ This table covers the coverage of apip
 
 <img alt="⚠️" src="https://somehybrid.github.io/cdn/warning.png" width=15>: This feature does not have full coverage yet.
 
-## Quickstart
-To get started and see what `apip` can do, run some example programs.
-```python
->>> import apip
->>> import asyncio
->>> pip = apip.Pip()
->>> asyncio.run(pip.get("module"))
->>> print(asyncio.run(pip.list()))
-```
+Getting started
+-----------------
+
+Is this your first time using the library? This is the place to get started!
+
+- **Quickstart:** :doc:`quickstart`
+- **Installation:** :doc:`installation`
+
+Content
+-------
+
+If you're looking for something related to the project itself, it's here.
+
+.. toctree::
+  :maxdepth: 1
+
+  api
+  installation
+  quickstart

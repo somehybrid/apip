@@ -1,6 +1,7 @@
 from __future__ import annotations
 from . import errors
 import subprocess
+import asyncio
 
 class Package:
     """
@@ -206,7 +207,7 @@ class Package:
                 f"{name} is not a valid package!"
             )
 
-    def install(self):
+    async def install(self):
         """
         Installs a package through the Pip API. Returns a Package object for the installed package.
 
@@ -219,7 +220,7 @@ class Package:
         empty = ""
         version_str = f"=={self._version}"
         command = f"pip install --index-url {self.index} {self._name}{version_str if self._version else empty}"
-        out = subprocess.run(self._shellify(command), capture_output=True)
+        out = asyncio.create_subprocess_shell(self._shellify(command), stderr=asyncio.subprocess.PIPE)
         self._err_checking(out.stderr.decode())
 
     def uninstall(self, name):
@@ -229,7 +230,7 @@ class Package:
         :param name: The name of the package to uninstall.
         :raises PackageNotFoundException: The package was not found.
         """
-        out = subprocess.run(self._shellify(f"pip uninstall {name} -y"), capture_output=True)
+        out = asyncio.create_subprocess_shell(self._shellify(f"pip uninstall {name} -y"), stderr=asyncio.subprocess.PIPE)
         out = out.stderr.decode()
         not_installable = f"ERROR: Directory '{name}' is not installable. Neither setup.py nor 'pyproject.toml' \
                           found."

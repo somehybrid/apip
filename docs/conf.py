@@ -22,14 +22,6 @@ import re
 sys.path.insert(0, os.path.abspath('..'))
 sys.path.append(os.path.abspath('extensions'))
 
-# -- General configuration ------------------------------------------------
-
-# If your documentation needs a minimal Sphinx version, state it here.
-#needs_sphinx = '1.0'
-
-# Add any Sphinx extension module names here, as strings. They can be
-# extensions coming with Sphinx (named 'sphinx.ext.*') or your custom
-# ones.
 extensions = [
     'builder',
     'sphinx.ext.autodoc',
@@ -42,22 +34,18 @@ extensions = [
     'attributetable',
     'resourcelinks',
     'nitpick_file_ignorer',
+    "myst_parser",
 ]
 
 autodoc_member_order = 'bysource'
 autodoc_typehints = 'none'
-# maybe consider this?
-# napoleon_attr_annotations = False
 
 extlinks = {
     'issue': ('https://github.com/SomeHybrid/apip/issues/%s', 'GH-'),
 }
 
-# Links used for cross-referencing stuff in other documentation
 intersphinx_mapping = {
   'py': ('https://docs.python.org/3', None),
-  'aio': ('https://docs.aiohttp.org/en/stable/', None),
-  'req': ('https://requests.readthedocs.io/en/latest/', None)
 }
 
 rst_prolog = """
@@ -72,9 +60,6 @@ templates_path = ['_templates']
 
 # The suffix of source filenames.
 source_suffix = '.rst'
-
-# The encoding of source files.
-#source_encoding = 'utf-8-sig'
 
 # The master toctree document.
 master_doc = 'index'
@@ -107,12 +92,6 @@ branch = 'master' if version.endswith('a') else 'v' + version
 language = 'en'
 
 gettext_compact = False
-
-# There are two options for replacing |today|: either, you set today to some
-# non-false value, then it is used:
-#today = ''
-# Else, today_fmt is used as the format for a strftime call.
-#today_fmt = '%B %d, %Y'
 
 # List of patterns, relative to source directory, that match files and
 # directories to ignore when looking for source files.

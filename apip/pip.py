@@ -1,6 +1,6 @@
 from .package import Package
 from . import errors
-import subprocess
+import asyncio
 import aiohttp
 import re
 
@@ -26,16 +26,7 @@ class Client:
         """
         return self._index
 
-    async def _create_client(self):
-        """
-        Creates a client for the Pip API.
-
-        :return: A client for the Pip API.
-        :rtype: aiohttp.ClientSession
-        """
-        return aiohttp.ClientSession()
-
-    def list(self):
+    async def list(self):
         """
         Lists all installed packages and returns them in a list of Package objects.
 
@@ -43,7 +34,10 @@ class Client:
         :rtype: list
         """
         packages = []
-        output = subprocess.run(["pip", "list"], capture_output=True)
+        output = asyncio.create_subprocess_shell(
+            ["pip", "list"],
+            stdout=asyncio.subprocess.PIPE
+        )
         output = output.stdout.decode()
         output = ' '.join(output.splitlines()[2:])
         output = re.findall('(?! )[a-zA-Z\d\.\-]*', output)

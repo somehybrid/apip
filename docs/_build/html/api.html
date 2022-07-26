@@ -130,8 +130,8 @@ Methods</span><ul>
 <li class="py-attribute-table-entry">
 <span class="py-attribute-table-badge" title="coroutine">
 async</span><a class="reference internal" href="#apip.Client.get">get</a></li><li class="py-attribute-table-entry">
-<span class="py-attribute-table-badge" title="method">
-def</span><a class="reference internal" href="#apip.Client.list">list</a></li></ul>
+<span class="py-attribute-table-badge" title="coroutine">
+async</span><a class="reference internal" href="#apip.Client.list">list</a></li></ul>
 </div></div><dl class="py class">
 <dt class="sig sig-object py" id="apip.Client">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">apip.</span></span><span class="sig-name descname"><span class="pre">Client</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">index</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'https://pypi.org/simple'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#apip.Client" title="Permalink to this definition">¶</a></dt>
@@ -157,7 +157,7 @@ def</span><a class="reference internal" href="#apip.Client.list">list</a></li></
 
 <dl class="py method">
 <dt class="sig sig-object py" id="apip.Client.list">
-<span class="sig-name descname"><span class="pre">list</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#apip.Client.list" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">await</span> </em><span class="sig-name descname"><span class="pre">list</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#apip.Client.list" title="Permalink to this definition">¶</a></dt>
 <dd><p>Lists all installed packages and returns them in a list of Package objects.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns</dt>
@@ -171,14 +171,11 @@ def</span><a class="reference internal" href="#apip.Client.list">list</a></li></
 
 <dl class="py method">
 <dt class="sig sig-object py" id="apip.Client.get">
-<em class="property"><span class="pre">await</span> </em><span class="sig-name descname"><span class="pre">get</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">package</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">version</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#apip.Client.get" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">await</span> </em><span class="sig-name descname"><span class="pre">get</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">package</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#apip.Client.get" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns a Package object for a given package name. Queries data from the PyPi API.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>package</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a>) – The name of the package to get.</p></li>
-<li><p><strong>version</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a>) – The version of the package to get.</p></li>
-</ul>
+<dd class="field-odd"><p><strong>package</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a>) – The name of the package to get.</p>
 </dd>
 <dt class="field-even">Returns</dt>
 <dd class="field-even"><p>A Package object for the given package.</p>
@@ -202,8 +199,15 @@ def</span><a class="reference internal" href="#apip.Client.list">list</a></li></
 Attributes</span><ul>
 <li class="py-attribute-table-entry">
 <a class="reference internal" href="#apip.Package.author">author</a></li><li class="py-attribute-table-entry">
+<a class="reference internal" href="#apip.Package.author_email">author_email</a></li><li class="py-attribute-table-entry">
+<a class="reference internal" href="#apip.Package.classifiers">classifiers</a></li><li class="py-attribute-table-entry">
+<a class="reference internal" href="#apip.Package.description">description</a></li><li class="py-attribute-table-entry">
+<a class="reference internal" href="#apip.Package.docs">docs</a></li><li class="py-attribute-table-entry">
+<a class="reference internal" href="#apip.Package.homepage">homepage</a></li><li class="py-attribute-table-entry">
 <a class="reference internal" href="#apip.Package.index">index</a></li><li class="py-attribute-table-entry">
+<a class="reference internal" href="#apip.Package.issue_tracker">issue_tracker</a></li><li class="py-attribute-table-entry">
 <a class="reference internal" href="#apip.Package.license">license</a></li><li class="py-attribute-table-entry">
+<a class="reference internal" href="#apip.Package.maintainer">maintainer</a></li><li class="py-attribute-table-entry">
 <a class="reference internal" href="#apip.Package.name">name</a></li><li class="py-attribute-table-entry">
 <a class="reference internal" href="#apip.Package.summary">summary</a></li><li class="py-attribute-table-entry">
 <a class="reference internal" href="#apip.Package.version">version</a></li></ul>
@@ -211,13 +215,13 @@ Attributes</span><ul>
 <span>
 Methods</span><ul>
 <li class="py-attribute-table-entry">
-<span class="py-attribute-table-badge" title="method">
-def</span><a class="reference internal" href="#apip.Package.install">install</a></li><li class="py-attribute-table-entry">
+<span class="py-attribute-table-badge" title="coroutine">
+async</span><a class="reference internal" href="#apip.Package.install">install</a></li><li class="py-attribute-table-entry">
 <span class="py-attribute-table-badge" title="method">
 def</span><a class="reference internal" href="#apip.Package.uninstall">uninstall</a></li></ul>
 </div></div><dl class="py class">
 <dt class="sig sig-object py" id="apip.Package">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">apip.</span></span><span class="sig-name descname"><span class="pre">Package</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">version</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">author</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">summary</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">description</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">license</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#apip.Package" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">apip.</span></span><span class="sig-name descname"><span class="pre">Package</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">version</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">author</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">summary</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">description</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">maintainer</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">license</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">author_email</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">classifiers</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">homepage</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">keywords</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">docs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#apip.Package" title="Permalink to this definition">¶</a></dt>
 <dd><p>A base class that wraps around Pip packages</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -317,9 +321,107 @@ def</span><a class="reference internal" href="#apip.Package.uninstall">uninstall
 </dl>
 </dd></dl>
 
+<dl class="py property">
+<dt class="sig sig-object py" id="apip.Package.maintainer">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">maintainer</span></span><a class="headerlink" href="#apip.Package.maintainer" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the maintainer of the package.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>The maintainer of the package.</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)">str</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="apip.Package.description">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">description</span></span><a class="headerlink" href="#apip.Package.description" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the description of the package.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>The description of the package.</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)">str</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="apip.Package.author_email">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">author_email</span></span><a class="headerlink" href="#apip.Package.author_email" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the author email of the package.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>The author email of the package.</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)">str</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="apip.Package.classifiers">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">classifiers</span></span><a class="headerlink" href="#apip.Package.classifiers" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the classifiers of the package.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>The classifiers of the package.</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.10)">list</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="apip.Package.homepage">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">homepage</span></span><a class="headerlink" href="#apip.Package.homepage" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the homepage of the package.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>The homepage of the package.</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)">str</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="apip.Package.docs">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">docs</span></span><a class="headerlink" href="#apip.Package.docs" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the documentation URL of the package.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>The documentation URL of the package.</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)">str</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="apip.Package.issue_tracker">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">issue_tracker</span></span><a class="headerlink" href="#apip.Package.issue_tracker" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the issue tracker of the package.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>The issue tracker of the package.</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)">str</a></p>
+</dd>
+</dl>
+</dd></dl>
+
 <dl class="py method">
 <dt class="sig sig-object py" id="apip.Package.install">
-<span class="sig-name descname"><span class="pre">install</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#apip.Package.install" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">await</span> </em><span class="sig-name descname"><span class="pre">install</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#apip.Package.install" title="Permalink to this definition">¶</a></dt>
 <dd><p>Installs a package through the Pip API. Returns a Package object for the installed package.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns</dt>
