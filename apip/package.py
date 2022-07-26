@@ -209,7 +209,7 @@ class Package:
         empty = ""
         version_str = f"=={self._version}"
         command = f"pip install --index-url {self.index} {self._name}{version_str if self._version else empty}"
-        out = asyncio.create_subprocess_shell(command, stderr=asyncio.subprocess.PIPE)
+        out = await asyncio.create_subprocess_shell(command, stderr=asyncio.subprocess.PIPE)
         self._err_checking(out.stderr.decode())
 
     def uninstall(self, name):
@@ -219,7 +219,7 @@ class Package:
         :param name: The name of the package to uninstall.
         :raises PackageNotFoundException: The package was not found.
         """
-        out = asyncio.create_subprocess_shell(f"pip uninstall {name} -y", stderr=asyncio.subprocess.PIPE)
+        out = await asyncio.create_subprocess_shell(f"pip uninstall {name} -y", stderr=asyncio.subprocess.PIPE)
         out = out.stderr.decode()
         not_installable = f"ERROR: Directory '{name}' is not installable. Neither setup.py nor 'pyproject.toml' \
                           found."
