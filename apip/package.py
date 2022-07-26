@@ -159,17 +159,6 @@ class Package:
         """
         return self._issue_tracker
 
-    def _shellify(self, command: str) -> list:
-        """
-        Takes a command and returns a list of arguments to be used in a subprocess.run call.
-
-        :param command: The command to shellify.
-        :type command: str
-        :return: A list of arguments to be used in a subprocess.run call.
-        :rtype: list
-        """
-        return command.split()
-
     def _err_checking(self, output):
         """
         Checks the output of a subprocess.run call for errors.
@@ -220,7 +209,7 @@ class Package:
         empty = ""
         version_str = f"=={self._version}"
         command = f"pip install --index-url {self.index} {self._name}{version_str if self._version else empty}"
-        out = asyncio.create_subprocess_shell(self._shellify(command), stderr=asyncio.subprocess.PIPE)
+        out = asyncio.create_subprocess_shell(command, stderr=asyncio.subprocess.PIPE)
         self._err_checking(out.stderr.decode())
 
     def uninstall(self, name):
@@ -230,7 +219,7 @@ class Package:
         :param name: The name of the package to uninstall.
         :raises PackageNotFoundException: The package was not found.
         """
-        out = asyncio.create_subprocess_shell(self._shellify(f"pip uninstall {name} -y"), stderr=asyncio.subprocess.PIPE)
+        out = asyncio.create_subprocess_shell(f"pip uninstall {name} -y", stderr=asyncio.subprocess.PIPE)
         out = out.stderr.decode()
         not_installable = f"ERROR: Directory '{name}' is not installable. Neither setup.py nor 'pyproject.toml' \
                           found."

@@ -6,6 +6,12 @@ An easy, high level wrapper for the PyPi API. It wraps Pip and PyPi into an easi
 
 ---
 
+## Features
+- Easy to use, high level API.
+- Fully asynchronous and non-blocking.
+
+---
+
 ## Installation
 **Requires Python 3.7+**
 
@@ -26,6 +32,8 @@ This table covers the coverage of apip
 | Getting individual version packages | <img alt="🚫" src="https://cdnjs.cloudflare.com/ajax/libs/emojione/2.2.7/assets/png/1f6ab.png" width=15> |
 
 <img alt="⚠️" src="https://somehybrid.github.io/cdn/warning.png" width=15>: This feature does not have full coverage yet.
+
+---
 
 ## Quickstart
 To get started and see what `apip` can do, run some example programs.
