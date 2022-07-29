@@ -27,6 +27,7 @@ class BasePackage:
     :attr name: The name of the package.
     :attr version: The version of the package.
     """
+
     name: str
     version: str
     author: str = None

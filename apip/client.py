@@ -1,4 +1,4 @@
-from .installer import Installer
+from apip.abc.installer import Installer
 import asyncio
 import re
 
@@ -10,6 +10,7 @@ class Client(Installer):
     :param index: The index to install the package from.
     :type index: str
     """
+
     def __init__(self, index="https://pypi.org/simple"):
         Installer.__init__(self, index)
         self.get = self._get
@@ -23,17 +24,11 @@ class Client(Installer):
         """
         packages = []
         output = asyncio.create_subprocess_shell(
-            "pip list",
-            stdout=asyncio.subprocess.PIPE
+            "pip list", stdout=asyncio.subprocess.PIPE
         )
         output = output.stdout.decode()
-        output = ' '.join(output.splitlines()[2:])
-        output = re.findall('(?! )[a-zA-Z\d\.\-]*', output)
-        it = iter(output)
-        joined = [[a, b] for a, b in zip(it, it)]
-        for index, item in enumerate(joined):
-            if item == "":
-                output.pop(index)
-                continue
-            packages.append(self.get(item[0]))
+        output = " ".join(output.splitlines()[2:])
+        output = re.findall("[a-zA-Z][^ ]*", output)
+        for item in output:
+            packages.append(self.get(item))
         return packages

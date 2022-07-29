@@ -3,6 +3,7 @@
 import apip
 import asyncio
 
+
 def test():
     client = apip.Client()
     passing = True
@@ -17,6 +18,7 @@ def test():
     try:
         asyncio.run(client.install("testingpkg"))
         import testingpkg
+
         passing = testingpkg.test()
         print("Installation test passed")
     except apip.errors.PackageNotFoundException:
