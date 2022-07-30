@@ -29,7 +29,9 @@ class Installer:
         """
         version = f"/{version}" if version else ""
         async with aiohttp.ClientSession() as client:
-            async with client.get(f"https://pypi.org/pypi/{pkg}{version}/json") as response:
+            async with client.get(
+                f"https://pypi.org/pypi/{pkg}{version}/json"
+            ) as response:
                 if response.status == 404:
                     raise errors.PackageNotFoundException(
                         f"{pkg} is not a valid package!"
@@ -116,7 +118,9 @@ class Installer:
         """
         name = pkg.name if isinstance(pkg, package.Package) else pkg
         out = await asyncio.create_subprocess_shell(
-            f"pip uninstall {name} -y", stdout=asyncio.subprocess.PIPE, stderr=asyncio.subprocess.PIPE
+            f"pip uninstall {name} -y",
+            stdout=asyncio.subprocess.PIPE,
+            stderr=asyncio.subprocess.PIPE,
         )  # we won't actually use stdout, it just stops it from printing to the console
         out = await out.communicate()
         out = out[1].decode()

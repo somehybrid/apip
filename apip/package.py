@@ -60,7 +60,9 @@ class Package(BasePackage, Installer):
         :raises PackageNotFoundException: The package was not found.
         """
         out = await asyncio.create_subprocess_shell(
-            f"pip uninstall {self.name} -y", stdout=asyncio.subprocess.PIPE, stderr=asyncio.subprocess.PIPE
+            f"pip uninstall {self.name} -y",
+            stdout=asyncio.subprocess.PIPE,
+            stderr=asyncio.subprocess.PIPE,
         )  # we won't actually use stdout, it just stops it from printing to the console
         out = await out.communicate()
         out = out[1].decode()
