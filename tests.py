@@ -12,7 +12,7 @@ def test():
         asyncio.run(client.install("test"))
         print("Error handling test failed")
         passing = False
-    except apip.errors.PackageNotFoundException:
+    except apip.abc.errors.PackageNotFoundException:
         print("Errors handling test passed")
 
     try:
@@ -21,7 +21,7 @@ def test():
 
         passing = testingpkg.test()
         print("Installation test passed")
-    except apip.errors.PackageNotFoundException:
+    except apip.abc.errors.PackageNotFoundException:
         print("Installation test failed")
         passing = False
     except ImportError:
@@ -33,8 +33,16 @@ def test():
         package2 = asyncio.run(client.get("testingpkg"))
         passing = package.name == package2.name and package.version == package2.version
         print("Package get test passed")
-    except apip.errors.PackageNotFoundException:
+    except apip.abc.errors.PackageNotFoundException:
         print("Package get test failed")
         passing = False
+
+    try:
+        asyncio.run(client.get("thisisnotarealpackagefortesting"))
+        passing = False
+        print("Get error handling test failed")
+    except apip.abc.errors.PackageNotFoundException:
+        print("Get error handling test passed")
+        passing = True
 
     return passing

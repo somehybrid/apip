@@ -1,5 +1,5 @@
-from apip import package
-from apip import errors
+from .. import package
+from . import errors
 import asyncio
 import aiohttp
 
@@ -15,26 +15,33 @@ class Installer:
     def __init__(self, index="https://pypi.org/simple"):
         self.index = index
 
-    async def _get(self, pkg):
+    async def _get(self, pkg, version=None):
         """
         Returns a Package object for a given package name. Queries data from the PyPi API.
 
         :param pkg: The name of the package to get.
         :type pkg: str
+        :param version: The version of the package to get.
+        :type version: str
         :return: A Package object for the given package.
         :rtype: Package
         :raises PackageNotFoundException: The package was not found.
         """
+        version = f"/{version}" if version else ""
         async with aiohttp.ClientSession() as client:
-            async with client.get(f"https://pypi.org/pypi/{pkg}/json") as response:
+            async with client.get(f"https://pypi.org/pypi/{pkg}{version}/json") as response:
                 if response.status == 404:
                     raise errors.PackageNotFoundException(
                         f"{pkg} is not a valid package!"
                     )
                 data = await response.json()
+                if data == {"message": "Not Found"}:
+                    raise errors.PackageNotFoundException(
+                        f"{pkg} is not a valid package!"
+                    )
                 return package.Package(
                     data["info"]["name"],
-                    data["info"]["version"],
+                    data["info"]["version"] if not version else version,
                     data["info"]["author"],
                     data["info"]["summary"],
                     data["info"]["description"],
@@ -76,23 +83,26 @@ class Installer:
         if not_installable in output:
             raise errors.PackageNotFoundException(f"{name} is not a valid package!")
 
-    async def install(self, pkg):
+    async def install(self, pkg, version=None):
         """
         Installs a package through the Pip API. Returns a Package object for the installed package.
 
         :param pkg: The package to install.
         :type pkg: str or Package
+        :param version: The version of the package to install.
+        :type version: str
         :return: A Package object for the installed package.
         :rtype: Package
         :raises PackageNotFoundException: The package was not found.
         :raises self.VersionNotFoundException: The version was not found.
         :raises ConnectionException: The connection to PyPi was unsuccessful.
         """
-        pkg = await self._get(pkg) if isinstance(pkg, str) else pkg
-        command = f"pip install --index-url {self.index} {pkg.name}"
+        version = f"=={version}" if version else ""
+        pkg = await self._get(pkg, version) if isinstance(pkg, str) else pkg
+        command = f"pip install --index-url {self.index} {pkg.name}{version}"
         out = await asyncio.create_subprocess_shell(
-            command, stderr=asyncio.subprocess.PIPE
-        )
+            command, stdout=asyncio.subprocess.PIPE, stderr=asyncio.subprocess.PIPE
+        )  # we won't actually use stdout, it just stops it from printing to the console
         out = await out.communicate()
         self._err_checking(out[1].decode(), pkg.name, pkg.version)
         return pkg if isinstance(pkg, str) else pkg
@@ -106,8 +116,8 @@ class Installer:
         """
         name = pkg.name if isinstance(pkg, package.Package) else pkg
         out = await asyncio.create_subprocess_shell(
-            f"pip uninstall {name} -y", stderr=asyncio.subprocess.PIPE
-        )
+            f"pip uninstall {name} -y", stdout=asyncio.subprocess.PIPE, stderr=asyncio.subprocess.PIPE
+        )  # we won't actually use stdout, it just stops it from printing to the console
         out = await out.communicate()
         out = out[1].decode()
         not_installable = f"ERROR: Directory '{name}' is not installable. Neither setup.py nor 'pyproject.toml' \

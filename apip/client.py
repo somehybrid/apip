@@ -24,11 +24,11 @@ class Client(Installer):
         """
         packages = []
         output = asyncio.create_subprocess_shell(
-            "pip list", stdout=asyncio.subprocess.PIPE
+            "pip list", stdout=asyncio.subprocess.PIPE, stderr=asyncio.subprocess.PIPE
         )
-        output = output.stdout.decode()
+        output = output[1]
         output = " ".join(output.splitlines()[2:])
-        output = re.findall("[a-zA-Z][^ ]*", output)
-        for item in output:
-            packages.append(self.get(item))
+        output = re.findall("[a-zA-Z\d][^ \n]*", output)
+        for index, item in enumerate(output[::2]):
+            packages.append(self.get(item, output[index + 1]))
         return packages
