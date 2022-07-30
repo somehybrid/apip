@@ -37,9 +37,9 @@ The following table shows the coverage of apip.
           :alt: ⚠️
    * - Package Versioning
      - Getting individual package versions from PyPi.
-     - .. image:: https://cdnjs.cloudflare.com/ajax/libs/emojione/2.2.7/assets/png/1f6ab.png
+     - .. image:: https://cdnjs.cloudflare.com/ajax/libs/emojione/2.2.7/assets/png/2705.png
           :width: 23
-          :alt: 🚫
+          :alt: ✅
 
 Getting started
 -----------------
