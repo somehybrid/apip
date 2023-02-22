@@ -21,20 +21,6 @@ pip install apip
 ```
 ---
 
-## API Coverage
-This table covers the coverage of apip
-
-| Feature             | Supported                                                                                                |
-|---------------------|----------------------------------------------------------------------------------------------------------|
-| Installing Packages | <img alt="✅" src="https://cdnjs.cloudflare.com/ajax/libs/emojione/2.2.7/assets/png/2705.png" width=15>   |
-| Error Porting       | <img alt="✅" src="https://cdnjs.cloudflare.com/ajax/libs/emojione/2.2.7/assets/png/2705.png" width=15>   |
-| Pypi API | <img alt="⚠️" src="https://somehybrid.github.io/cdn/warning.png" width=15>*                              |
-| Getting individual version packages | <img alt="✅" src="https://cdnjs.cloudflare.com/ajax/libs/emojione/2.2.7/assets/png/2705.png" width=15> |
-
-<img alt="⚠️" src="https://somehybrid.github.io/cdn/warning.png" width=15>: This feature does not have full coverage yet.
-
----
-
 ## Quickstart
 To get started and see what `apip` can do, run some example programs.
 ```python
