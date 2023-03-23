@@ -1,7 +1,9 @@
 from .. import package
 from . import errors
+from os import devnull
 import asyncio
 import aiohttp
+import sys
 
 
 class Installer:
@@ -15,7 +17,7 @@ class Installer:
     def __init__(self, index="https://pypi.org/simple"):
         self.index = index
 
-    async def _get(self, pkg, version=None):
+    async def get(self, pkg, version=""):
         """
         Returns a Package object for a given package name. Queries data from the PyPi API.
 
@@ -27,10 +29,9 @@ class Installer:
         :rtype: Package
         :raises PackageNotFoundException: The package was not found.
         """
-        version = f"/{version}" if version else ""
         async with aiohttp.ClientSession() as client:
             async with client.get(
-                f"https://pypi.org/pypi/{pkg}{version}/json"
+                f"https://pypi.python.org/pypi/{pkg}/{version}/json"
             ) as response:
                 if response.status == 404:
                     raise errors.PackageNotFoundException(
@@ -100,10 +101,9 @@ class Installer:
         :raises ConnectionException: The connection to PyPi was unsuccessful.
         """
         version = f"=={version}" if version else ""
-        pkg = await self._get(pkg, version) if isinstance(pkg, str) else pkg
-        command = f"pip install --index-url {self.index} {pkg.name}{version}"
+        pkg = await self.get(pkg, version) if isinstance(pkg, str) else pkg
         out = await asyncio.create_subprocess_shell(
-            command, stdout=asyncio.subprocess.PIPE, stderr=asyncio.subprocess.PIPE
+            f"{sys.executable} -m pip install --index-url {self.index} {pkg.name}{version}", stdout=asyncio.subprocess.PIPE, stderr=asyncio.subprocess.PIPE
         )  # we won't actually use stdout, it just stops it from printing to the console
         out = await out.communicate()
         self._err_checking(out[1].decode(), pkg.name, pkg.version)
@@ -118,10 +118,10 @@ class Installer:
         """
         name = pkg.name if isinstance(pkg, package.Package) else pkg
         out = await asyncio.create_subprocess_shell(
-            f"pip uninstall {name} -y",
-            stdout=asyncio.subprocess.PIPE,
+            f"{sys.executable} -m pip uninstall {name} -y",
+            stdout=devnull,
             stderr=asyncio.subprocess.PIPE,
-        )  # we won't actually use stdout, it just stops it from printing to the console
+        )
         out = await out.communicate()
         out = out[1].decode()
         not_installable = f"ERROR: Directory '{name}' is not installable. Neither setup.py nor 'pyproject.toml' \
@@ -131,4 +131,4 @@ class Installer:
         invalid_package = f"WARNING: Skipping {name} as it is not installed."
         if invalid_package in out:
             raise errors.PackageNotFoundException(f"{name} is not installed!")
-        return await self._get(name) if isinstance(pkg, str) else pkg
+        return await self.get(name) if isinstance(pkg, str) else pkg

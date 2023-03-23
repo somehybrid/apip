@@ -34,12 +34,11 @@ class Package(BasePackage, Installer):
         )
         Installer.__init__(self, index)
 
-    async def install(self):
+    async def install(self) -> "Package":
         """
         Installs itself through the Pip API. Returns itself.
 
         :return: A Package object for the installed package.
-        :rtype: Package
         :raises PackageNotFoundException: The package was not found.
         :raises self.VersionNotFoundException: The version was not found.
         :raises ConnectionException: The connection to PyPi was unsuccessful.

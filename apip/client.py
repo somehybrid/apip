@@ -1,5 +1,6 @@
 from apip.abc.installer import Installer
 import asyncio
+import sys
 import re
 
 
@@ -13,7 +14,6 @@ class Client(Installer):
 
     def __init__(self, index="https://pypi.org/simple"):
         Installer.__init__(self, index)
-        self.get = self._get
 
     async def list(self):
         """
@@ -23,12 +23,14 @@ class Client(Installer):
         :rtype: list
         """
         packages = []
-        output = asyncio.create_subprocess_shell(
-            "pip list", stdout=asyncio.subprocess.PIPE, stderr=asyncio.subprocess.PIPE
+        proc = await asyncio.create_subprocess_shell(
+            f"{sys.executable} -m pip list", stdout=asyncio.subprocess.PIPE, stderr=asyncio.subprocess.PIPE
         )
-        output = output[1]
-        output = " ".join(output.splitlines()[2:])
-        output = re.findall("[a-zA-Z\d][^ \n]*", output)
-        for index, item in enumerate(output[::2]):
-            packages.append(self.get(item, output[index + 1]))
+        output = await proc.communicate()
+        output = output[0].decode()
+        output = '\n'.join(output.splitlines()[2:])
+        pkg = re.findall("[\w-]+(?= )", output)
+        versions = re.findall("(?<= )[\d\.]+", output)
+        for package, version in zip(pkg, versions):
+            packages.append(await self.get(package, version))
         return packages

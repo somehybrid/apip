@@ -6,12 +6,6 @@ An easy, high level wrapper for the PyPi API. It wraps Pip and PyPi into an easi
 
 ---
 
-## Features
-- Easy to use, high level API.
-- Fully asynchronous and non-blocking.
-
----
-
 ## Installation
 **Requires Python 3.7+**
 
@@ -22,11 +16,19 @@ pip install apip
 ---
 
 ## Quickstart
-To get started and see what `apip` can do, run some example programs.
+
 ```python
 >>> import apip
 >>> import asyncio
->>> pip = apip.Pip()
+>>> pip = apip.Client()
 >>> asyncio.run(pip.get("module"))
 >>> print(asyncio.run(pip.list()))
 ```
+<<<<<<< HEAD
+=======
+
+---
+
+## Documentation
+Check the documentation for `apip` [here](https://apip.readthedocs.io/en/latest).
+>>>>>>> 210fcb6 (v0.3)
