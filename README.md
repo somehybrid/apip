@@ -24,11 +24,6 @@ pip install apip
 >>> asyncio.run(pip.get("module"))
 >>> print(asyncio.run(pip.list()))
 ```
-<<<<<<< HEAD
-=======
-
----
 
 ## Documentation
 Check the documentation for `apip` [here](https://apip.readthedocs.io/en/latest).
->>>>>>> 210fcb6 (v0.3)
