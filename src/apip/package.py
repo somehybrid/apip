@@ -1,11 +1,8 @@
 from __future__ import annotations
 from dataclasses import dataclass
 
-import httpx
-from index import Index
 
-
-@dataclass(frozen=True)
+@dataclass(frozen=True, slots=True)
 class Release:
     digests: dict[str, str]
     filename: str
@@ -21,13 +18,13 @@ class Release:
     yanked_reason: str
 
 
-@dataclass(frozen=True)
+@dataclass(frozen=True, slots=True)
 class Metadata:
     author: str
     author_email: str
 
 
-@dataclass(frozen=True)
+@dataclass(frozen=True, slots=True)
 class Package:
     name: str
     classifiers: list[str]
